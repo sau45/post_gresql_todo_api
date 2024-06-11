@@ -1,11 +1,19 @@
 const Pool = require("pg").Pool;
+require("dotenv").config();
 
-const  pool = new Pool({
-    user:"postgres",
-    password:"Utl123#@",
-    host:"localhost",
-    port:5432,
-    database:"perntodo"
+const pool = new Pool({
+    connectionString: process.env.POSTGRES_URL
 })
 
-module.exports=pool;
+pool.connect((err) => {
+    try {
+        if (err) throw err;
+        console.log("Connect Postgresql Successfully !");
+
+    } catch (error) {
+
+    }
+
+})
+
+module.exports = pool;
