@@ -2,10 +2,11 @@ const router = require("express").Router();
 const pool = require('../db')
 
 
-router.post("/todos", async(req,res)=>{
+router.post("/post/todos", async(req,res)=>{
     try {
         const {description}= req.body;
         const newtodo = await pool.query("INSERT INTO todo (description) VALUES($1) RETURNING *",[description])
+      
 
         res.json(newtodo.rows[0])
 
@@ -17,7 +18,7 @@ router.post("/todos", async(req,res)=>{
 
 })
 
-router.get("/todos",async(req,res)=>{
+router.get("/get/todos",async(req,res)=>{
     try {
         const alltodo = await pool.query("SELECT * FROM todo");
         res.json(alltodo.rows)
